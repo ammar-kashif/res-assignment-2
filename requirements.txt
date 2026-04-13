@@ -1,0 +1,10 @@
+transformers==4.44.2
+torch==2.4.1
+scikit-learn==1.5.2
+fairlearn==0.11.0
+aif360==0.6.1
+pandas==2.2.3
+numpy==1.26.4
+matplotlib==3.9.2
+seaborn==0.13.2
+jupyter==1.1.1
