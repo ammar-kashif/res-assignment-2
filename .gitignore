@@ -13,6 +13,7 @@ wandb/
 .venv/
 venv/
 env/
+data/
 
 # Python
 __pycache__/
