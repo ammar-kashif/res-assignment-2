@@ -41,8 +41,19 @@ jupyter notebook
 ```
 
 Run notebooks in order: `part1` → `part2` → `part3` → `part4` → `part5`.
-Each notebook saves artefacts (checkpoints, predictions) under `checkpoints/` which are
-git-ignored. Later parts load the artefacts produced by earlier parts.
+Each notebook is **self-contained** (re-loads the data with the same seed, re-loads the
+saved baseline checkpoint where needed) but they share artefacts under `checkpoints/`:
+
+| Notebook | Reads | Writes |
+|---|---|---|
+| `part1.ipynb` | `data/jigsaw-unintended-bias-train.csv` | `checkpoints/baseline/` |
+| `part2.ipynb` | `checkpoints/baseline/` | — |
+| `part3.ipynb` | `checkpoints/baseline/` | `checkpoints/poisoned/` |
+| `part4.ipynb` | `checkpoints/baseline/` | `checkpoints/best_mitigated_*/` |
+| `part5.ipynb` | `checkpoints/best_mitigated_*/` (falls back to `baseline/`) | `checkpoints/baseline/isotonic.pkl` |
+
+`pipeline.py` is the standalone module exposed by Part 5 and can be used after
+running the notebooks: `python pipeline.py "you should kill yourself"`.
 
 ### Google Colab
 
